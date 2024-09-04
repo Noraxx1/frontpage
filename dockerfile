@@ -14,6 +14,6 @@ RUN bun install || { echo 'Bun dependencies installation failed'; exit 1; }
 
 COPY . .
 
-RUND node host.js
+RUN node host.js
 
 EXPOSE 3000
