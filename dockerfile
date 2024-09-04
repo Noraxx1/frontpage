@@ -1,19 +1,10 @@
-FROM node:20-bullseye-slim
+FROM node:18
 
-RUN apt-get update && apt-get install -y curl
-
-RUN curl -fsSL https://bun.sh/install | bash || { echo 'Bun installation failed'; exit 1; }
-ENV BUN_INSTALL="/root/.bun"
-ENV PATH="${BUN_INSTALL}/bin:${PATH}"
-
-WORKDIR /app
-
-COPY package.json bun.lockb ./
-
-RUN bun install || { echo 'Bun dependencies installation failed'; exit 1; }
-
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
 COPY . .
 
-RUN node host.js
-
 EXPOSE 3000
+
+CMD ["node", "host.js"]
